@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    
+    <style>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 20px;
+        }
+
+        .menu {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            display: flex;
+        }
+        .menu li {
+            display: inline-block;
+        }
+
+        .menu li:last-child {
+            margin-right: 0;
+            margin-left: auto;
+        }
+
+        .menu li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .menu li a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        .tabs-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tab-content {
+            display: none;
+            flex: 1;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content ul {
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .tab-content li {
+            background-color: #fff;
+            margin-bottom: 10px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+	.form-container {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+    }
+.file-input-label {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+	
+}
+
+.form-control-file1 {
+    display: none; /* Hide the default file input */
+}
+
+	.assignments-list {
+        width: 100%; /* Use the full width of the container */
+    }
+
+    .assignments-heading {
+        text-align: Left;
+        color: #007bff;
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+        /* Adjustments for Notifications */
+        .notifications-list {
+            padding: 0;
+        }
+
+        .notification-item {
+            position: relative;
+            margin-bottom: 20px; /* Adjust as needed */
+        }
+
+        .notification-options {
+            position: absolute;
+            top: 0;
+            right: 5px;
+            text-decoration: none !important;
+            margin-top: 10px;
+        }
+       
+        /* Adjustments for Profile */
+        .profile-logo-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid #fff;
+        }
+
+        .profile-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .view-icon {
+            margin-top: 10px;
+            font-size: 24px;
+            color: blue;
+            cursor: pointer;
+        }
+
+        .view-icon:hover {
+            color: darkblue;
+        }
+
+        .profile-details {
+            display: none;
+            position: absolute;
+            top: 70px;
+            right: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-details.show {
+            display: block;
+        }
+.profile-logo-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+		 border: 2px solid #fff;
+        }
+
+        .profile-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+.profile-photo1 {
+    width: 120px; 
+    height: 120px; 
+    object-fit: cover;
+}
+.btn-submit {
+        background-color: #28a745; /* Green color */
+        color: #ffffff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+	  margin-top: 30px;
+        transition: background-color 0.3s;
+    }
+
+    .btn-submit:hover {
+        background-color: #218838; /* Darker green on hover */
+    }
+input[type="file"] {
+    display: none;
+}
+
+label {
+    font-size: 20px; /* Increased text size */
+}
+
+input[type="text"],
+input[type="file"] {
+    font-size: 16px; /* Increased text size */
+	width: 50%;
+}
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    text-align: center;
+    height: 30px;
+}
+footer a {
+    color: #fff; 
+    text-decoration: none; 
+}
+
+footer a:hover {
+    text-decoration: underline; 
+}
+.profile-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+        }
+        .profile-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .profile-photo:hover .overlay {
+            opacity: 1;
+        }
+        .edit-icon {
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        input[type="file"] {
+            display: none;
+        }
+
+    </style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var profileLogoContainer = document.getElementById('profile-photo');
+        var profileDetails = document.getElementById('profile-details');
+
+        profileLogoContainer.addEventListener('click', function () {
+            profileDetails.classList.toggle('show');
+        });
+
+        // Call the getUserDetails function when the page loads
+        getUserDetails();
+    });
+ // Function to fetch user details from the server
+    function getUserDetails() {
+ fetch('/get_profile_photo', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to fetch profile photo');
+        }
+        return response.blob(); // Get the response body as a Blob object
+    })
+    .then(blob => {
+        // Convert the Blob object to a data URL
+        const reader = new FileReader();
+        reader.onload = () => {
+            const imageDataUrl = reader.result;
+            // Display the profile photo using the data URL
+            document.getElementById('profilePhoto').src = imageDataUrl;
+        };
+        reader.readAsDataURL(blob);
+    })
+    .catch(error => {
+        console.error('Error fetching profile photo:', error);
+        // Handle errors appropriately
+    });
+        fetch('/user_details', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch user details');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Handle the retrieved user details
+            displayUserDetails(data);
+        })
+        .catch(error => {
+            console.error('Error fetching user details:', error);
+            // Handle errors appropriately, e.g., display an error message to the user
+        });
+    }
+
+    // Function to display user details on the webpage
+    function displayUserDetails(user) {
+        // Assuming you have HTML elements with IDs to display user details
+        document.getElementById('username').textContent = user.username;
+        document.getElementById('name').textContent = user.name;
+        document.getElementById('email').textContent = user.email;
+        document.getElementById('role').textContent = user.role;
+        document.getElementById('id_rollno').textContent = user.id_rollno;
+        document.getElementById('gender').textContent = user.gender;
+        document.getElementById('contact_number').textContent = user.contact_number;
+
+    }
+
+    function openTab(tabName) {
+        var i;
+        var tabContent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabContent.length; i++) {
+            tabContent[i].classList.remove("active");
+        }
+        document.getElementById(tabName).classList.add("active");
+    }
+
+    function showHints() {
+        var input = document.getElementById('searchBox').value;
+        var hintsContainer = document.getElementById('searchResults');
+
+        // Clear previous hints
+        hintsContainer.innerHTML = '';
+
+        // Perform AJAX call to get student names based on input
+        if (input.trim() !== '') {
+            // Adjust the URL based on your server-side route for fetching student names
+            var url = '/get_student_names?query=' + input;
+
+            // Use fetch API or XMLHttpRequest to make the AJAX call
+            // Update this based on your actual implementation
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(student => {
+                        var hintItem = document.createElement('li');
+                        hintItem.textContent = student.name;
+                        hintItem.onclick = function () {
+                            displayAssignments(student.username);
+                        };
+                        if (student.status === null) {
+                            var evaluateLink = document.createElement('a');
+                            evaluateLink.href = '/evaluate_assignment/' + student.username;  // Replace with the actual URL
+                            evaluateLink.textContent = 'Evaluate';
+                            hintItem.appendChild(evaluateLink);
+                        }
+                        hintsContainer.appendChild(hintItem);
+                    });
+                })
+                .catch(error => console.error('Error fetching student names:', error));
+        }
+    }
+
+    function displayAssignments(username, assignmentName) {
+        // Perform AJAX call to get assignment statuses based on the selected student and assignment name
+        var url = '/get_assignments?username=' + username + '&assignment_name=' + encodeURIComponent(assignmentName);
+
+        // Use fetch API or XMLHttpRequest to make the AJAX call
+        // Update this based on your actual implementation
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                var resultsContainer = document.getElementById('searchResults');
+                resultsContainer.innerHTML = '';
+
+                // Add a heading with the user's name
+                var userNameHeading = document.createElement('h3');
+                userNameHeading.textContent = 'User: ' + username;
+                resultsContainer.appendChild(userNameHeading);
+
+                data.forEach(assignment => {
+                    var assignmentItem = document.createElement('div');
+                    assignmentItem.innerHTML = `<strong>${assignment.name}<br></strong>Status: ${assignment.status} - Marks: ${assignment.marks || 'N/A'}`;
+                    resultsContainer.appendChild(assignmentItem);
+                    // Check if status is null, then add Evaluate link
+                    if (!assignment.status) {
+                        var evaluateLink = document.createElement('a');
+                        evaluateLink.href = `/evaluate_assignment/${username}?assignment_name=${encodeURIComponent(assignment.name)}`;
+                        evaluateLink.textContent = 'Evaluate';
+                        assignmentItem.appendChild(evaluateLink);
+                    }
+                    // Add a horizontal rule between assignments
+                    resultsContainer.appendChild(document.createElement('hr'));
+                });
+            })
+            .catch(error => console.error('Error fetching assignments:', error));
+    }
+
+
+    
+
+    function confirmLogout() {
+        var confirmation = confirm("Are you sure you want to logout?");
+        if (confirmation) {
+            window.location.href = "{{ url_for('logout') }}";
+        }
+    }
+
+// Function to handle profile photo upload
+function uploadProfilePhoto() {
+    var fileInput = document.getElementById('fileInput');
+    var file = fileInput.files[0];
+
+    var formData = new FormData();
+    formData.append('photo', file);
+
+    fetch('/upload_profile_photo', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to upload file');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Display success message to the user
+        alert('Profile photo uploaded successfully! The page will now refresh.');
+
+        // Reload the page to reflect the changes
+        window.location.reload();
+    })
+    .catch(error => {
+        console.error('Error uploading file:', error);
+        // Handle error response if needed
+    });
+}
+
+
+</script>
+
+</head>
+<body>
+   <div class="profile-logo-container" id="profile-photo">
+       <img src="/get_profile_photo" alt="Profile Photo" class="profile-logo" title="Profile">
+
+    </div>
+
+    <h1>Welcome, {{ username }}!</h1>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+<div>
+    <ul class="menu">
+        <li><a href="javascript:void(0)" onclick="openTab('home')">Home</a></li>
+        <li><a href="javascript:void(0)" onclick="openTab('notification')">Notifications</a></li>
+        <li><a href="javascript:void(0)" onclick="openTab('assignments')">Submitted Assignments</a></li>
+        <li><a href="javascript:void(0)" onclick="confirmLogout()">Logout</a></li>
+    </ul>
+</div>
+<div class="tabs-container">
+    <div id="home" class="tab-content active">
+    <div class="form-container">
+        <form action="/student_dashboard" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name">Assignment Name:</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="file">Select File:</label>
+                <label for="fileInput" class="file-input-label">Choose File</label> <!-- Add a label for the file input -->
+                <input type="file" id="fileInput" name="file" accept=".pdf, .doc, .docx" class="form-control-file1" required>
+            </div>
+            <button type="submit" class="btn btn-submit">Submit Assignment</button>
+        </form>
+    </div>
+</div>
+
+    <div id="assignments" class="tab-content">
+        <div class="assignments-list"><br>
+            <div class="assignments-heading">Submitted Assignments:</div>
+            <ul>
+                {% for assignment in assignments[::-1] %}
+                <li>
+                    <strong>{{ assignment[1] }}</strong><br>Status: {{ assignment[4] or 'Not evaluated' }} - Marks: {{
+                    assignment[5] or 'N/A' }}
+                    {% if assignment[4] == 'Approved' %}
+                    <br>Comments: {{ assignment[6] or 'No comments' }}
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div id="notification" class="tab-content">
+       <div class="notificationss-list"><br>
+            <div class="notificationss-heading">Notifications:</div>
+            {% if notificationss %}
+            <ul>
+                {% for notification in notificationss %}
+                <li>
+                    <strong>{{ notification[1] }}</strong><br>
+                    {{ notification[2] }} ({{ notification[3] }})
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p>No notifications available.</p>
+            {% endif %}
+        </div> 
+    </div>
+</div>
+
+    <div id="profile-details" class="profile-details">
+        <center><h3>User Profile</h3></center>
+        <div class="profile-photo-container">
+<div class="profile-photo" id="profilePhoto">
+ <img src="/get_profile_photo" alt="Profile Photo">
+    <div class="overlay">
+        <label for="fileInput" class="edit-icon">&#9998;</label>
+        <input type="file" id="fileInput" accept="image/*" >
+	  <button onclick="uploadProfilePhoto()">Upload</button>
+    </div>
+</div>
+
+</div>
+        <p><strong>Username:</strong> <span id="username"></span></p>
+        <p><strong>Name:</strong> <span id="name"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>Role:</strong> <span id="role"></span></p>
+        <p><strong>Roll.No:</strong> <span id="id_rollno"></span></p>
+        <p><strong>Contact:</strong> <span id="contact_number"></span></p>
+        <p><strong>Gender:</strong> <span id="gender"></span></p>
+
+    </div>
+
+<footer>
+        <p>Design by <a href="http://www.linkedin.com/in/roshan-nalla" target="_blank">BUG SQUASHERS TEAM</a></p>
+    </footer>
+</body>
+</html>

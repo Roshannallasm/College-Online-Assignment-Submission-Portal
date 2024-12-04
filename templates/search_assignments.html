@@ -1,0 +1,17 @@
+<!-- search_assignments.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Assignments</title>
+</head>
+<body>
+    <!-- Display search results -->
+    <div class="search-results">
+        {% for result in search_results %}
+            <div>{{ result.assignment }} - Status: {{ result.status }}</div>
+        {% endfor %}
+    </div>
+</body>
+</html>

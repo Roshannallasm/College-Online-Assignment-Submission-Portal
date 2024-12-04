@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Include necessary meta tags, title, and styles -->
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Welcome, {{ username }}!</h1>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <h2>Your Submitted Assignments:</h2>
+        <ul>
+            {% for assignment in assignments %}
+                <li>
+                    <strong>{{ assignment[1] }}</strong> - Status: {{ assignment[4] or 'Not evaluated' }}
+                    {% if assignment[4] != 'Pending' %}
+                        - Marks: {{ assignment[5] or 'N/A' }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <button type="button" onclick="location.href='/logout'" class="btn btn-secondary btn-logout">Logout</button>
+    </div>
+</body>
+</html>

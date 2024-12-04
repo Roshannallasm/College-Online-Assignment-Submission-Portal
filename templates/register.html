@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+
+    <!-- Add your preferred font link or import here -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+
+    <style>
+        /* Add your custom CSS styles here */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-image: url('/static/images/reg_page.jpg'); /* Replace with the path to your image */
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+        }
+
+        .messages {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            color: #ff0000;
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px; /* Adjusted to a narrower width */
+            width: 100%; /* Take full width */
+            background-color: rgba(255, 255, 255, 0.7); /* 70% opacity white background */
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 500px;
+            margin-left: -200px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        p {
+            margin-top: 20px;
+            color: #555;
+            text-align: center;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form action="/register" method="post">
+        <h1>Register</h1>
+        <label for="username">Username:</label>
+        <input type="text" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" required>
+
+        <label for="name">Name:</label>
+        <input type="text" name="name" required>
+
+        <label for="role">Role:</label>
+        <select name="role" id="role" required>
+            <option value="student">Student</option>
+            <option value="faculty">Faculty</option>
+        </select>
+
+        <label for="id">ID/Roll No:</label>
+        <input type="text" name="id" required>
+
+        <label for="gender">Gender:</label>
+        <select name="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+        </select>
+
+        <label for="contact">Contact Number:</label>
+        <input type="text" name="contact" required>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" pattern="[a-zA-Z0-9]{10}[@]{1}gniindia.org" required>
+
+        <label for="secretCode">Secret Code:</label>
+        <input type="password" name="secretCode" id="secretCode" required>
+
+        <button type="submit">Register</button>
+        <p>Already have an account? <a href="/login">Login here</a>.</p>
+    </form>
+
+    <script>
+        // Custom validation for Secret Code field
+        document.getElementById('secretCode').addEventListener('input', function() {
+            var secretCode = this.value;
+            var validSecretCode = 'gni-gnitc-cse';
+
+            if (secretCode !== validSecretCode) {
+                this.setCustomValidity('Invalid secret code. Please enter the correct secret code.');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+    </script>
+</body>
+</html>
